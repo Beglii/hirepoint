@@ -20,14 +20,20 @@ public class JobApplication {
 
     private LocalDate dateApplied;
 
+    private String jobPostingUrl;
+
     public JobApplication() {
     }
 
-    public JobApplication(String companyName, String jobTitle, ApplicationStatus status, LocalDate dateApplied) {
+    @Column(columnDefinition = "TEXT") //important we use this for notes so we can go past the 255-character limit
+    private String notes;
+
+    public JobApplication(String companyName, String jobTitle, ApplicationStatus status, LocalDate dateApplied, String jobPostingUrl) {
         this.companyName = companyName;
         this.jobTitle = jobTitle;
         this.status = status;
         this.dateApplied = dateApplied;
+        this.jobPostingUrl = jobPostingUrl;
     }
 
     public Long getId() {
@@ -64,5 +70,21 @@ public class JobApplication {
 
     public void setDateApplied(LocalDate dateApplied) {
         this.dateApplied = dateApplied;
+    }
+
+    public String getJobPostingUrl() {
+        return jobPostingUrl;
+    }
+
+    public void setJobPostingUrl(String jobPostingUrl) {
+        this.jobPostingUrl = jobPostingUrl;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 }
