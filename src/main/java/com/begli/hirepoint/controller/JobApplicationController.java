@@ -52,6 +52,11 @@ public class JobApplicationController {
         JobApplication existing = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Application not found with id " + id));
 
+        User currentUser = getCurrentUser();
+        if (!existing.getUser().getId().equals(currentUser.getId())) {
+            throw new RuntimeException("You do not have permission to modify this application");
+        }
+
         existing.setCompanyName(updatedApplication.getCompanyName());
         existing.setJobTitle(updatedApplication.getJobTitle());
         existing.setStatus(updatedApplication.getStatus());
@@ -64,6 +69,14 @@ public class JobApplicationController {
 
     @DeleteMapping("/{id}") //this is the rest convention for removal
     public void deleteApplication(@PathVariable Long id) {
+        JobApplication existing = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Application not found with id " + id));
+
+        User currentUser = getCurrentUser();
+        if (!existing.getUser().getId().equals(currentUser.getId())) {
+            throw new RuntimeException("You do not have permission to delete this application");
+        }
+
         repository.deleteById(id);
     }
 
