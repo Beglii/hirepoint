@@ -13,6 +13,10 @@ public class JobApplication {
 
     private String companyName;
 
+    @ManyToOne //bean stating many job application entities could be in 1 user
+    @JoinColumn(name = "user_id")
+    private User user;
+
     private String jobTitle;
 
     @Enumerated(EnumType.STRING)
@@ -86,5 +90,13 @@ public class JobApplication {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
