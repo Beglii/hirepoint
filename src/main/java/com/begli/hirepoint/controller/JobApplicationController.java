@@ -3,6 +3,8 @@ package com.begli.hirepoint.controller;
 import com.begli.hirepoint.model.JobApplication;
 import com.begli.hirepoint.model.User;
 import com.begli.hirepoint.repository.JobApplicationRepository; //importing our model and repo
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.begli.hirepoint.repository.UserRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,6 +19,8 @@ import java.util.List;
 @RestController//this tells Spring that this class handles all HTTP requests and that all HTTP responses should be in JSON form
 @RequestMapping("/api/applications") //routes the URL path for every method
 public class JobApplicationController {
+
+    private static final Logger logger = LoggerFactory.getLogger(JobApplicationController.class);
 
     private final JobApplicationRepository repository;
     private final UserRepository userRepository; //controller needs to look up both user and job application records
@@ -43,7 +47,9 @@ public class JobApplicationController {
     public JobApplication createApplication(@RequestBody JobApplication newApplication) {
         User currentUser = getCurrentUser();
         newApplication.setUser(currentUser); //safety check, if someone tries to change the user when creating a job application, this sets it to the user that is logged in automatically
-        return repository.save(newApplication);
+        JobApplication saved = repository.save(newApplication);
+        logger.info("User {} created application id {} for company {}", currentUser.getUsername(), saved.getId(), saved.getCompanyName());
+        return saved;
     } //opposite to the @getMapping this method converts the raw JSON from the incoming request
     // and spring boot auto converts it into a Job application object
 
@@ -54,6 +60,7 @@ public class JobApplicationController {
 
         User currentUser = getCurrentUser();
         if (!existing.getUser().getId().equals(currentUser.getId())) {
+            logger.warn("User {} attempted to update application id {} owned by another user", currentUser.getUsername(), id);
             throw new RuntimeException("You do not have permission to modify this application");
         }
 
@@ -64,6 +71,7 @@ public class JobApplicationController {
         existing.setJobPostingUrl(updatedApplication.getJobPostingUrl());
         existing.setNotes(updatedApplication.getNotes());
 
+        logger.info("User {} updated application id {}", currentUser.getUsername(), id);
         return repository.save(existing);
     }
 
@@ -74,10 +82,12 @@ public class JobApplicationController {
 
         User currentUser = getCurrentUser();
         if (!existing.getUser().getId().equals(currentUser.getId())) {
+            logger.warn("User {} attempted to delete application id {} owned by another user", currentUser.getUsername(), id);
             throw new RuntimeException("You do not have permission to delete this application");
         }
 
         repository.deleteById(id);
+        logger.info("User {} deleted application id {}", currentUser.getUsername(), id);
     }
 
 }
