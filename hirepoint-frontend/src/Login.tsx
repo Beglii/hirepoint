@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { login } from "./api";
 
-function LoginPage() {
+interface LoginPageProps {
+  onLoginSuccess: (token: string) => void;
+}
+
+function LoginPage({ onLoginSuccess }: LoginPageProps) {
   const [username, setUsername] = useState(""); //state in react allows the variable to be re rendered
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -12,7 +16,7 @@ function LoginPage() {
 
     try {
       const token = await login({ username, password });
-      console.log("Got token:", token);
+      onLoginSuccess(token);
     } catch (err) {
       setError("Invalid username or password");
     }

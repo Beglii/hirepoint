@@ -5,6 +5,16 @@ interface LoginRequest {
   password: string;
 }
 
+export interface JobApplication {
+  id: number;
+  companyName: string;
+  jobTitle: string;
+  status: string;
+  dateApplied: string;
+  jobPostingUrl: string;
+  notes: string;
+}
+
 export async function login(credentials: LoginRequest): Promise<string> {
   const response = await fetch(`${API_BASE_URL}/auth/login`, { //making HTTP request
     method: "POST",
@@ -19,4 +29,18 @@ export async function login(credentials: LoginRequest): Promise<string> {
   }
 
   return response.text();
+}
+
+export async function getApplications(token: string): Promise<JobApplication[]> {
+  const response = await fetch(`${API_BASE_URL}/applications`, { //GET method
+    headers: {
+      Authorization: `Bearer ${token}`, //the default header for tokenization
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch applications");
+  }
+
+  return response.json();
 }
