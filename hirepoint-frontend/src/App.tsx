@@ -15,11 +15,15 @@ function App() {
     }
   }, [token]);
 
+  function handleLogout() {
+  setToken(null);
+  }
+
   if (!token) {
     return <LoginPage onLoginSuccess={setToken} />;
   }
 
-  return <Dashboard token={token} />;
+  return <Dashboard token={token} onLogout={handleLogout} />;
 }
 
 export default App;

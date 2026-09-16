@@ -3,9 +3,10 @@ import { getApplications, type JobApplication } from "./api";
 
 interface DashboardProps {
   token: string;
+  onLogout: () => void;
 }
 
-function Dashboard({ token }: DashboardProps) {
+function Dashboard({ token, onLogout }: DashboardProps) {
   const [applications, setApplications] = useState<JobApplication[]>([]);
   const [error, setError] = useState("");
 
@@ -25,6 +26,7 @@ function Dashboard({ token }: DashboardProps) {
   return (
     <div>
       <h2>My Applications</h2>
+      <button onClick={onLogout}>Log Out</button>
       {error && <p style={{ color: "red" }}>{error}</p>}
       <ul>
         {applications.map((app) => (
