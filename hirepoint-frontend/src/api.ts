@@ -73,3 +73,22 @@ export async function createApplication(
 
   return response.json();
 }
+
+export interface RegisterRequest {
+  username: string;
+  password: string;
+}
+
+export async function register(credentials: RegisterRequest): Promise<void> {
+  const response = await fetch(`${API_BASE_URL}/auth/register`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(credentials),
+  });
+
+  if (!response.ok) {
+    throw new Error("Registration failed, username may already be taken");
+  }
+}

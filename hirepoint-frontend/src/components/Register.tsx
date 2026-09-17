@@ -1,38 +1,39 @@
 import { useState } from "react";
-import { login } from "../api";
+import { register, login } from "../api";
 
-interface LoginPageProps {
+interface RegisterPageProps {
   onLoginSuccess: (token: string) => void;
-  onSwitchToRegister: () => void;
+  onSwitchToLogin: () => void;
 }
 
-function LoginPage({ onLoginSuccess , onSwitchToRegister}: LoginPageProps) {
-  const [username, setUsername] = useState(""); //state in react allows the variable to be re rendered
+function RegisterPage({ onLoginSuccess, onSwitchToLogin }: RegisterPageProps) {
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  async function handleSubmit(event: React.FormEvent) { //this function runs when the onSubmit form below is submitted
+  async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
     setError("");
 
-    try {
+    try { //after registering drop the user into the dashboard, no need to login again
+      await register({ username, password });
       const token = await login({ username, password });
       onLoginSuccess(token);
     } catch (err) {
-      setError("Invalid username or password");
+      setError("Registration failed, username may already be taken");
     }
   }
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2>Log In</h2>
+      <h2>Register</h2>
 
       <div>
         <label>Username</label>
         <input
           type="text"
           value={username}
-          onChange={(e) => setUsername(e.target.value)} //every type fires the onChange, which updates the username state
+          onChange={(e) => setUsername(e.target.value)}
         />
       </div>
 
@@ -47,15 +48,15 @@ function LoginPage({ onLoginSuccess , onSwitchToRegister}: LoginPageProps) {
 
       {error && <p style={{ color: "red" }}>{error}</p>}
 
-      <button type="submit">Log In</button>
+      <button type="submit">Register</button>
       <p>
-        Don't have an account?{" "}
-        <button type="button" onClick={onSwitchToRegister}>
-          Register
+        Already have an account?{" "}
+        <button type="button" onClick={onSwitchToLogin}>
+          Log In
         </button>
       </p>
     </form>
   );
 }
 
-export default LoginPage;
+export default RegisterPage;
