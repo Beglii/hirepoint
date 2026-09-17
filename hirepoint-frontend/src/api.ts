@@ -15,6 +15,15 @@ export interface JobApplication {
   notes: string;
 }
 
+export interface NewJobApplication { //id is not here due to it automically being created
+  companyName: string;
+  jobTitle: string;
+  status: string;
+  dateApplied: string;
+  jobPostingUrl: string;
+  notes: string;
+}
+
 export async function login(credentials: LoginRequest): Promise<string> {
   const response = await fetch(`${API_BASE_URL}/auth/login`, { //making HTTP request
     method: "POST",
@@ -40,6 +49,26 @@ export async function getApplications(token: string): Promise<JobApplication[]> 
 
   if (!response.ok) {
     throw new Error("Failed to fetch applications");
+  }
+
+  return response.json();
+}
+
+export async function createApplication(
+  token: string,
+  newApplication: NewJobApplication
+): Promise<JobApplication> {
+  const response = await fetch(`${API_BASE_URL}/applications`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(newApplication),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to create application");
   }
 
   return response.json();

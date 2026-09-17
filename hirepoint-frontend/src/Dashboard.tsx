@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { getApplications, type JobApplication } from "./api";
+import AddApplicationForm from "./AddApplicationForm";
 
 interface DashboardProps {
   token: string;
@@ -23,6 +24,10 @@ function Dashboard({ token, onLogout }: DashboardProps) {
     fetchData();
   }, [token]); //re runs the code block above if token's value is different
 
+  function handleApplicationAdded(newApp: JobApplication) { //uses the spread operator, copies every existing element out of applications into a brand new array and adds one at the end
+    setApplications([...applications, newApp]);
+  }
+
   return (
     <div>
       <h2>My Applications</h2>
@@ -35,6 +40,7 @@ function Dashboard({ token, onLogout }: DashboardProps) {
           </li>
         ))}
       </ul>
+      <AddApplicationForm token={token} onApplicationAdded={handleApplicationAdded} />
     </div>
   );
 }
