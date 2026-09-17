@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getApplications, type JobApplication } from "./api";
+import { getApplications, type JobApplication } from "../api";
 import AddApplicationForm from "./AddApplicationForm";
 
 interface DashboardProps {

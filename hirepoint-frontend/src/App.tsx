@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import LoginPage from "./Login";
-import Dashboard from "./Dashboard";
+import LoginPage from "./components/Login";
+import Dashboard from "./components/Dashboard";
 
 function App() {
   const [token, setToken] = useState<string | null>(

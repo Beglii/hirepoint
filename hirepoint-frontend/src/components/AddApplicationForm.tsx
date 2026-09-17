@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createApplication, type JobApplication } from "./api";
+import { createApplication, type JobApplication } from "../api";
 
 interface AddApplicationFormProps {
   token: string;
