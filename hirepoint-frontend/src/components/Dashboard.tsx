@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { getApplications, type JobApplication } from "../api";
 import AddApplicationForm from "./AddApplicationForm";
+import ApplicationItem from "./ApplicationItem";
 
 interface DashboardProps {
   token: string;
@@ -28,6 +29,16 @@ function Dashboard({ token, onLogout }: DashboardProps) {
     setApplications([...applications, newApp]);
   }
 
+  function handleApplicationUpdated(updatedApp: JobApplication) {
+    setApplications(
+      applications.map((app) => (app.id === updatedApp.id ? updatedApp : app))
+    );
+  }
+
+  function handleApplicationDeleted(id: number) {
+    setApplications(applications.filter((app) => app.id !== id));
+  }
+
   return (
     <div>
       <h2>My Applications</h2>
@@ -35,9 +46,13 @@ function Dashboard({ token, onLogout }: DashboardProps) {
       {error && <p style={{ color: "red" }}>{error}</p>}
       <ul>
         {applications.map((app) => (
-          <li key={app.id}> 
-            {app.companyName} — {app.jobTitle} — {app.status}
-          </li>
+          <ApplicationItem
+            key={app.id}
+            application={app}
+            token={token}
+            onUpdated={handleApplicationUpdated}
+            onDeleted={handleApplicationDeleted}
+          />
         ))}
       </ul>
       <AddApplicationForm token={token} onApplicationAdded={handleApplicationAdded} />

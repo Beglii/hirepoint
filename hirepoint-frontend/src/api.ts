@@ -92,3 +92,36 @@ export async function register(credentials: RegisterRequest): Promise<void> {
     throw new Error("Registration failed, username may already be taken");
   }
 }
+export async function updateApplication(
+  token: string,
+  id: number,
+  updatedApplication: NewJobApplication
+): Promise<JobApplication> {
+  const response = await fetch(`${API_BASE_URL}/applications/${id}`, { //targets an id to target in job applications
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(updatedApplication),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to update application");
+  }
+
+  return response.json();
+}
+
+export async function deleteApplication(token: string, id: number): Promise<void> {
+  const response = await fetch(`${API_BASE_URL}/applications/${id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to delete application");
+  }
+}
