@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { getApplications, type JobApplication } from "../api";
+import { LogOut } from "lucide-react";
 import AddApplicationForm from "./AddApplicationForm";
 import ApplicationItem from "./ApplicationItem";
 
@@ -45,9 +46,10 @@ function Dashboard({ token, onLogout }: DashboardProps) {
   <div className="dashboard">
     <div className="dashboard-header">
       <h2>My Applications</h2>
-      <button className="btn-secondary" onClick={onLogout}>
-        Log Out
-      </button>
+      <button className="btn-outline" onClick={onLogout}>
+    <LogOut size={16} />
+    Log Out
+  </button>
     </div>
 
     <ul className="application-list">

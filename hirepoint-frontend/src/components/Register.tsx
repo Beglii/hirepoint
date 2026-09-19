@@ -10,11 +10,17 @@ interface RegisterPageProps {
 function RegisterPage({ onLoginSuccess, onSwitchToLogin }: RegisterPageProps) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
 
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
     setError("");
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
 
     try { //after registering drop the user into the dashboard, no need to login again
       await register({ username, password });
@@ -27,43 +33,51 @@ function RegisterPage({ onLoginSuccess, onSwitchToLogin }: RegisterPageProps) {
 
   return (
     <div className="auth-card">
-    <img src={hirepointIcon} alt="HirePoint" width={48} height={48} style={{ display: "block", margin: "0 auto 16px" }} />
-    <h2 style={{ textAlign: "center" }}>Register</h2>
+      <img src="/favicon.svg" alt="HirePoint" width={48} height={48} style={{ display: "block", margin: "0 auto 16px" }} />
+      <h2 style={{ textAlign: "center" }}>Register</h2>
 
-    <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
+        <div className="field">
+          <label>Username</label>
+          <input
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </div>
 
-      <div className="field">
-        <label>Username</label>
-        <input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-      </div>
+        <div className="field">
+          <label>Password</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
 
-      <div className="field">
-        <label>Password</label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </div>
+        <div className="field">
+          <label>Confirm Password</label>
+          <input
+            type="password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+        </div>
 
-      {error && <p className="error-text">{error}</p>}
+        {error && <p className="error-text">{error}</p>}
 
-      <button type="submit" className="btn btn-primary">
-        Register
-      </button>
-    </form>
+        <button type="submit" className="btn btn-primary">
+          Register
+        </button>
+      </form>
 
-    <p className="switch-text">
-      Already have a HirePoint account?{" "}
-      <button type="button" className="btn-secondary" onClick={onSwitchToLogin}>
-        Log in
-      </button>
-    </p>
-  </div>
-);
+      <p className="switch-text">
+        Already have a HirePoint account?{" "}
+        <button type="button" className="btn-secondary" onClick={onSwitchToLogin}>
+          Log in
+        </button>
+      </p>
+    </div>
+  );
 }
 export default RegisterPage;

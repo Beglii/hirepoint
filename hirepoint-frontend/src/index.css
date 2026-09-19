@@ -9,8 +9,50 @@ body {
   color: #e8e8e8;
 }
 
+.field textarea {
+  resize: vertical;
+  min-height: 60px;
+  max-height: 200px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #ab333f #2b2b2b;
+}
+
+.field textarea::-webkit-scrollbar {
+  width: 8px;
+}
+
+.field textarea::-webkit-scrollbar-track {
+  background: #2b2b2b;
+  border-radius: 4px;
+}
+
+.field textarea::-webkit-scrollbar-thumb {
+  background-color: #ab333f;
+  border-radius: 4px;
+}
+
+.field textarea::-webkit-scrollbar-thumb:hover {
+  background-color: #c33e4b;
+}
+
 input[type="date"] {
   color-scheme: dark;
+}
+
+li.application-card.application-card-editing {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.edit-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.edit-actions .btn {
+  flex: 1;
 }
 
 .page {
@@ -50,6 +92,24 @@ input[type="date"] {
 
 .dashboard-header h2 {
   color: #f0f0f0;
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: transparent;
+  color: #ab333f;
+  border: 1px solid #ab333f;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.btn-outline:hover {
+  background-color: #3a2426;
 }
 
 .field {
