@@ -81,6 +81,7 @@ function AddApplicationForm({ token, onApplicationAdded }: AddApplicationFormPro
             type="date"
             value={dateApplied}
             onChange={(e) => setDateApplied(e.target.value)}
+            onClick={(e) => e.currentTarget.showPicker()}
           />
         </div>
 
