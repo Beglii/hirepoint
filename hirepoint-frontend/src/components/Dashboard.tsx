@@ -45,12 +45,15 @@ function Dashboard({ token, onLogout }: DashboardProps) {
   return (
   <div className="dashboard">
     <div className="dashboard-header">
-      <h2>My Applications</h2>
-      <button className="btn-outline" onClick={onLogout}>
+  <div className="brand-title">
+    <img src="/favicon.svg" alt="HirePoint" width={45} height={45} />
+    <h2>My Applications</h2>
+  </div>
+  <button className="btn-outline" onClick={onLogout}>
     <LogOut size={16} />
     Log Out
   </button>
-    </div>
+</div>
 
     <ul className="application-list">
         {applications.map((app) => (

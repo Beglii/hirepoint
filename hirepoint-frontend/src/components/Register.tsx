@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { register, login } from "../api";
-import hirepointIcon from "../../public/favicon.svg";
 
 interface RegisterPageProps {
   onLoginSuccess: (token: string) => void;

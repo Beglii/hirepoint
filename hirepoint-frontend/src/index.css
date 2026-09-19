@@ -94,6 +94,16 @@ li.application-card.application-card-editing {
   color: #f0f0f0;
 }
 
+.brand-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-title h2 {
+  margin: 0;
+}
+
 .btn-outline {
   display: inline-flex;
   align-items: center;
