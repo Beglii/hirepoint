@@ -53,7 +53,7 @@ function RegisterPage({ onLoginSuccess, onSwitchToLogin }: RegisterPageProps) {
       {error && <p className="error-text">{error}</p>}
 
       <button type="submit" className="btn btn-primary">
-        Log In
+        Register
       </button>
     </form>
 

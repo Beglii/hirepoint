@@ -9,6 +9,10 @@ body {
   color: #e8e8e8;
 }
 
+input[type="date"] {
+  color-scheme: dark;
+}
+
 .page {
   min-height: 100vh;
   display: flex;

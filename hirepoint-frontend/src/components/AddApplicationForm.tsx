@@ -43,67 +43,68 @@ function AddApplicationForm({ token, onApplicationAdded }: AddApplicationFormPro
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <div>
       <h3>Add Application</h3>
 
-      <div>
-        <label>Company Name</label>
-        <input
-          type="text"
-          value={companyName}
-          onChange={(e) => setCompanyName(e.target.value)}
-        />
-      </div>
+      <form onSubmit={handleSubmit}>
+        <div className="field">
+          <label>Company Name</label>
+          <input
+            type="text"
+            value={companyName}
+            onChange={(e) => setCompanyName(e.target.value)}
+          />
+        </div>
 
-      <div>
-        <label>Job Title</label>
-        <input
-          type="text"
-          value={jobTitle}
-          onChange={(e) => setJobTitle(e.target.value)}
-        />
-      </div>
+        <div className="field">
+          <label>Job Title</label>
+          <input
+            type="text"
+            value={jobTitle}
+            onChange={(e) => setJobTitle(e.target.value)}
+          />
+        </div>
 
-      <div>
-        <label>Status</label>
-        <select value={status} onChange={(e) => setStatus(e.target.value)}>
-          <option value="APPLIED">Applied</option>
-          <option value="INTERVIEWING">Interviewing</option>
-          <option value="OFFER">Offer</option>
-          <option value="REJECTED">Rejected</option>
-        </select>
-      </div>
+        <div className="field">
+          <label>Status</label>
+          <select value={status} onChange={(e) => setStatus(e.target.value)}>
+            <option value="APPLIED">Applied</option>
+            <option value="INTERVIEWING">Interviewing</option>
+            <option value="OFFER">Offer</option>
+            <option value="REJECTED">Rejected</option>
+          </select>
+        </div>
 
-      <div>
-        <label>Date Applied</label>
-        <input
-          type="date"
-          value={dateApplied}
-          onChange={(e) => setDateApplied(e.target.value)}
-        />
-      </div>
+        <div className="field">
+          <label>Date Applied</label>
+          <input
+            type="date"
+            value={dateApplied}
+            onChange={(e) => setDateApplied(e.target.value)}
+          />
+        </div>
 
-      <div>
-        <label>Job Posting URL</label>
-        <input
-          type="text"
-          value={jobPostingUrl}
-          onChange={(e) => setJobPostingUrl(e.target.value)}
-        />
-      </div>
+        <div className="field">
+          <label>Job Posting URL</label>
+          <input
+            type="text"
+            value={jobPostingUrl}
+            onChange={(e) => setJobPostingUrl(e.target.value)}
+          />
+        </div>
 
-      <div>
-        <label>Notes</label>
-        <textarea
-          value={notes}
-          onChange={(e) => setNotes(e.target.value)}
-        />
-      </div>
+        <div className="field">
+          <label>Notes</label>
+          <textarea value={notes} onChange={(e) => setNotes(e.target.value)} />
+        </div>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+        {error && <p className="error-text">{error}</p>}
 
-      <button type="submit">Add Application</button>
-    </form>
+        <button type="submit" className="btn btn-primary">
+          Add Application
+        </button>
+      </form>
+    </div>
   );
 }
 
