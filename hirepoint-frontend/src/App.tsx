@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import LoginPage from "./components/Login";
 import RegisterPage from "./components/Register";
 import Dashboard from "./components/Dashboard";
+import "./index.css";
 
 function App() {
   const [token, setToken] = useState<string | null>(
@@ -25,19 +26,28 @@ function App() {
   if (!token) {
     if (authView === "login") {
       return (
-        <LoginPage
-          onLoginSuccess={setToken}
-          onSwitchToRegister={() => setAuthView("register")}
-        />
+        <div className="page">
+          <LoginPage
+            onLoginSuccess={setToken}
+            onSwitchToRegister={() => setAuthView("register")}
+          />
+        </div>
       );
     }
     return (
-      <RegisterPage
-        onLoginSuccess={setToken}
-        onSwitchToLogin={() => setAuthView("login")}
-      />
+      <div className="page">
+        <RegisterPage
+          onLoginSuccess={setToken}
+          onSwitchToLogin={() => setAuthView("login")}
+        />
+      </div>
     );
-  } return <Dashboard token={token} onLogout={handleLogout} />;
-}
+  }
 
+  return (
+    <div className="page">
+      <Dashboard token={token} onLogout={handleLogout} />
+    </div>
+  );
+}
 export default App;

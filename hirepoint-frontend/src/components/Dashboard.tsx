@@ -40,24 +40,33 @@ function Dashboard({ token, onLogout }: DashboardProps) {
   }
 
   return (
-    <div>
+  <div className="dashboard">
+    <div className="dashboard-header">
       <h2>My Applications</h2>
-      <button onClick={onLogout}>Log Out</button>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <ul>
-        {applications.map((app) => (
-          <ApplicationItem
-            key={app.id}
-            application={app}
-            token={token}
-            onUpdated={handleApplicationUpdated}
-            onDeleted={handleApplicationDeleted}
-          />
-        ))}
-      </ul>
+      <button className="btn-secondary" onClick={onLogout}>
+        Log Out
+      </button>
+    </div>
+
+    {error && <p className="error-text">{error}</p>}
+
+    <ul className="application-list">
+      {applications.map((app) => (
+        <ApplicationItem
+          key={app.id}
+          application={app}
+          token={token}
+          onUpdated={handleApplicationUpdated}
+          onDeleted={handleApplicationDeleted}
+        />
+      ))}
+    </ul>
+
+    <div className="add-form-card">
       <AddApplicationForm token={token} onApplicationAdded={handleApplicationAdded} />
     </div>
-  );
+  </div>
+);
 }
 
 export default Dashboard;

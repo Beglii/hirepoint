@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { login } from "../api";
+import hirepointIcon from "../../public/favicon.svg";
 
 interface LoginPageProps {
   onLoginSuccess: (token: string) => void;
@@ -24,10 +25,12 @@ function LoginPage({ onLoginSuccess , onSwitchToRegister}: LoginPageProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Log In</h2>
+    <div className="auth-card">
+    <img src={hirepointIcon} alt="HirePoint" width={48} height={48} style={{ display: "block", margin: "0 auto 16px" }} />
+    <h2 style={{ textAlign: "center" }}>Log In</h2>
 
-      <div>
+    <form onSubmit={handleSubmit}>
+      <div className="field">
         <label>Username</label>
         <input
           type="text"
@@ -36,7 +39,7 @@ function LoginPage({ onLoginSuccess , onSwitchToRegister}: LoginPageProps) {
         />
       </div>
 
-      <div>
+      <div className="field">
         <label>Password</label>
         <input
           type="password"
@@ -45,17 +48,21 @@ function LoginPage({ onLoginSuccess , onSwitchToRegister}: LoginPageProps) {
         />
       </div>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p className="error-text">{error}</p>}
 
-      <button type="submit">Log In</button>
-      <p>
-        Don't have an account?{" "}
-        <button type="button" onClick={onSwitchToRegister}>
-          Register
-        </button>
-      </p>
+      <button type="submit" className="btn btn-primary">
+        Log In
+      </button>
     </form>
-  );
+
+    <p className="switch-text">
+      Don't have a HirePoint account?{" "}
+      <button type="button" className="btn-secondary" onClick={onSwitchToRegister}>
+        Register
+      </button>
+    </p>
+  </div>
+);
 }
 
 export default LoginPage;
