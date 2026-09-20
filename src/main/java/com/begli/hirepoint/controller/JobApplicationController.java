@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*; //allows to use the @GetMappin
                                                                     //@RestController
                                                                     //@PostMapping
                                                                     //@RequestBody
-
+import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController//this tells Spring that this class handles all HTTP requests and that all HTTP responses should be in JSON form
@@ -44,7 +44,7 @@ public class JobApplicationController {
     }
 
     @PostMapping
-    public JobApplication createApplication(@RequestBody JobApplication newApplication) {
+    public JobApplication createApplication(@Valid @RequestBody JobApplication newApplication) {
         User currentUser = getCurrentUser();
         newApplication.setUser(currentUser); //safety check, if someone tries to change the user when creating a job application, this sets it to the user that is logged in automatically
         JobApplication saved = repository.save(newApplication);
@@ -54,7 +54,7 @@ public class JobApplicationController {
     // and spring boot auto converts it into a Job application object
 
     @PutMapping("/{id}") //this updates the application
-    public JobApplication updateApplication(@PathVariable Long id, @RequestBody JobApplication updatedApplication) {
+    public JobApplication updateApplication(@PathVariable Long id, @Valid @RequestBody JobApplication updatedApplication) {
         JobApplication existing = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Application not found with id " + id));
 

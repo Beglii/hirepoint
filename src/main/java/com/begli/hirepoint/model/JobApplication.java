@@ -1,6 +1,7 @@
 package com.begli.hirepoint.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import java.time.LocalDate;
 
 @Entity
@@ -11,12 +12,14 @@ public class JobApplication {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; //generating id automatically
 
+    @NotBlank(message = "Company name is required")
     private String companyName;
 
     @ManyToOne //bean stating many job application entities could be in 1 user
     @JoinColumn(name = "user_id")
     private User user;
 
+    @NotBlank(message = "Job title is required")
     private String jobTitle;
 
     @Enumerated(EnumType.STRING)
