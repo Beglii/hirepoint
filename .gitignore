@@ -31,6 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
-/logs/hirepoint.log
+/logs
 
 hirepoint-frontend/node_modules/
+
+.env
