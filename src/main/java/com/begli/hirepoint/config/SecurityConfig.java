@@ -33,7 +33,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(List.of("http://localhost:5173",
-                "http://hirepoint-frontend-begli.s3-website.us-east-2.amazonaws.com")); //only requests from the vite dev server will be allowed
+                                                "https://hirepoint.dev")); //only requests from the vite dev server will be allowed
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE")); //allowed methods
         configuration.setAllowedHeaders(List.of("*")); //allowed any headers
 
