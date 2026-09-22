@@ -19,6 +19,9 @@ function ApplicationItem({ application, token, onUpdated, onDeleted }: Applicati
   const [notes, setNotes] = useState(application.notes);
 
   async function handleSave() {
+    if (!companyName.trim() || !jobTitle.trim()) {
+    return;
+  } 
     const updated = await updateApplication(token, application.id, {
       companyName,
       jobTitle,

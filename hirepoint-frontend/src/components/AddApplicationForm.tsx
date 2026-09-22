@@ -19,6 +19,11 @@ function AddApplicationForm({ token, onApplicationAdded }: AddApplicationFormPro
     event.preventDefault();
     setError("");
 
+    if (!companyName.trim() || !jobTitle.trim()) {
+    setError("Company name and job title are required");
+    return;
+  }
+
     try {
       const created = await createApplication(token, {
         companyName,

@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://localhost:8080/api"; // backend api calls 
+const API_BASE_URL = "http://hirepoint-alb-250640768.us-east-2.elb.amazonaws.com/api"; // backend api calls 
 
 interface LoginRequest {
   username: string;

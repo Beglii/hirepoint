@@ -32,7 +32,8 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:5173")); //only requests from the vite dev server will be allowed
+        configuration.setAllowedOrigins(List.of("http://localhost:5173",
+                "http://hirepoint-frontend-begli.s3-website.us-east-2.amazonaws.com")); //only requests from the vite dev server will be allowed
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE")); //allowed methods
         configuration.setAllowedHeaders(List.of("*")); //allowed any headers
 
@@ -47,7 +48,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable()) //good to block CSRF due to hirepoint not being cookie based with JWT tokens
                 .cors(cors -> cors.configurationSource(corsConfigurationSource())) //wires the cors bean into the spring security filter
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/auth/**" , "/health").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class); //this inserts the custom filter into Spring Security's filter chain
