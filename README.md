@@ -6,6 +6,26 @@ A full-stack job application tracker — register, log in, and manage your job s
 
 ---
 
+## Screenshots
+
+<p align="center">
+  <img src="docs/screenshots/dashboard.png" alt="HirePoint dashboard" width="800"><br>
+  <em>Dashboard — track every application's status at a glance</em>
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/login.png" alt="HirePoint login" width="400">
+  <img src="docs/screenshots/register.png" alt="HirePoint register" width="400"><br>
+  <em>Login and registration</em>
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/add-application.png" alt="Add application form" width="800"><br>
+  <em>Adding a new application</em>
+</p>
+
+---
+
 ## Features
 
 - **Authentication** — register/login with JWT-based auth, passwords hashed with BCrypt
