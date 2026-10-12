@@ -4,9 +4,10 @@ import { register, login } from "../api";
 interface RegisterPageProps {
   onLoginSuccess: (token: string) => void;
   onSwitchToLogin: () => void;
+  onBack: () => void;
 }
 
-function RegisterPage({ onLoginSuccess, onSwitchToLogin }: RegisterPageProps) {
+function RegisterPage({ onLoginSuccess, onSwitchToLogin, onBack}: RegisterPageProps) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -32,6 +33,9 @@ function RegisterPage({ onLoginSuccess, onSwitchToLogin }: RegisterPageProps) {
 
   return (
     <div className="auth-card">
+      <button type="button" className="btn-secondary" onClick = {onBack}>
+        ← Back
+      </button>
       <img src="/favicon.svg" alt="HirePoint" width={48} height={48} style={{ display: "block", margin: "0 auto 16px" }} />
       <h2 style={{ textAlign: "center" }}>Register</h2>
 
