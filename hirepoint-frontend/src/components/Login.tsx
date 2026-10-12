@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { login } from "../api";
-import hirepointIcon from "../../public/favicon.svg";
 
 interface LoginPageProps {
   onLoginSuccess: (token: string) => void;
@@ -26,7 +25,7 @@ function LoginPage({ onLoginSuccess , onSwitchToRegister}: LoginPageProps) {
 
   return (
     <div className="auth-card">
-    <img src={hirepointIcon} alt="HirePoint" width={48} height={48} style={{ display: "block", margin: "0 auto 16px" }} />
+    <img src="/favicon.svg" alt="HirePoint" width={48} height={48} style={{ display: "block", margin: "0 auto 16px" }} />
     <h2 style={{ textAlign: "center" }}>Log In</h2>
 
     <form onSubmit={handleSubmit}>
