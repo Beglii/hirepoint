@@ -78,6 +78,146 @@ li.application-card.application-card-editing {
   color: #f0f0f0;
 }
 
+.landing {
+  width: 100%;
+  max-width: 960px;
+}
+
+.landing-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+  margin-bottom: 56px;
+}
+
+.landing-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #f0f0f0;
+}
+
+.landing-title {
+  margin: 0 0 12px;
+  font-size: 36px;
+  line-height: 1.2;
+  color: #f0f0f0;
+}
+
+.landing-tagline {
+  margin: 0 0 28px;
+  font-size: 17px;
+  line-height: 1.5;
+  color: #b0b0b0;
+}
+
+.landing-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.landing-actions .btn-primary {
+  width: auto;
+  padding: 12px 28px;
+}
+
+.landing-preview {
+  background: #2b2b2b;
+  border: 1px solid #3a3a3a;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.landing-preview-title {
+  margin: 0 0 12px;
+  font-weight: 600;
+  color: #f0f0f0;
+}
+
+.landing-preview .application-list {
+  margin: 0;
+}
+
+.landing-preview .application-card {
+  background: #1e1e1e;
+}
+
+.landing-preview .application-card:last-child {
+  margin-bottom: 0;
+}
+
+.landing-how {
+  text-align: center;
+}
+
+.landing-how h2 {
+  margin: 0 0 20px;
+  font-size: 22px;
+  color: #f0f0f0;
+}
+
+.landing-steps {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  text-align: left;
+}
+
+.landing-step {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px;
+  background: #2b2b2b;
+  border: 1px solid #3a3a3a;
+  border-radius: 10px;
+}
+
+.landing-step-number {
+  font-size: 13px;
+  font-weight: 600;
+  color: #ab333f;
+}
+
+.landing-flow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.landing-flow-arrow,
+.landing-flow-or {
+  font-size: 14px;
+  color: #777;
+}
+
+@media (max-width: 720px) {
+  .landing-hero,
+  .landing-steps {
+    grid-template-columns: 1fr;
+  }
+
+  .landing-hero {
+    gap: 32px;
+    margin-bottom: 40px;
+  }
+
+  .landing-title {
+    font-size: 28px;
+  }
+}
+
 .dashboard {
   width: 100%;
   max-width: 720px;

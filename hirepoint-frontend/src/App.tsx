@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import LoginPage from "./components/Login";
 import RegisterPage from "./components/Register";
+import LandingPage from "./components/Landing";
 import Dashboard from "./components/Dashboard";
 import "./index.css";
 
@@ -9,7 +10,7 @@ function App() {
     localStorage.getItem("token")
   );
 
-  const [authView, setAuthView] = useState<"login" | "register">("login"); //auth view can only be login or register
+  const [authView, setAuthView] = useState<"landing" | "login" | "register">("landing"); //logged out visitors start on the landing page
 
   useEffect(() => {
     if (token) {
@@ -24,6 +25,16 @@ function App() {
   }
 
   if (!token) {
+    if (authView === "landing") {
+      return (
+        <div className="page">
+          <LandingPage
+            onGetStarted={() => setAuthView("register")}
+            onLogin={() => setAuthView("login")}
+          />
+        </div>
+      );
+    }
     if (authView === "login") {
       return (
         <div className="page">
