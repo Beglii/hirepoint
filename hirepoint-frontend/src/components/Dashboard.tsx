@@ -19,7 +19,7 @@ function Dashboard({ token, onLogout }: DashboardProps) {
       try {
         const data = await getApplications(token);
         setApplications(data);
-      } catch (err) {
+      } catch {
         setError("Failed to load applications");
       }
     }

@@ -42,7 +42,7 @@ function AddApplicationForm({ token, onApplicationAdded }: AddApplicationFormPro
       setDateApplied("");
       setJobPostingUrl("");
       setNotes("");
-    } catch (err) {
+    } catch {
       setError("Failed to create application");
     }
   }
