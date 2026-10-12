@@ -71,6 +71,14 @@ li.application-card.application-card-editing {
   max-width: 360px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   border: 1px solid #3a3a3a;
+  position: relative;
+}
+
+.btn-back {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: flex;
 }
 
 .auth-card h2 {

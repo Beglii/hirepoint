@@ -41,7 +41,7 @@ function App() {
           <LoginPage
             onLoginSuccess={setToken}
             onSwitchToRegister={() => setAuthView("register")}
-            onBack ={() => setAuthView("landing")}
+            onBack={() => setAuthView("landing")}
           />
         </div>
       );
@@ -51,7 +51,7 @@ function App() {
         <RegisterPage
           onLoginSuccess={setToken}
           onSwitchToLogin={() => setAuthView("login")}
-          onBack ={() => setAuthView("landing")}
+          onBack={() => setAuthView("landing")}
         />
       </div>
     );

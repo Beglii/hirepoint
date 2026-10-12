@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ArrowLeft } from "lucide-react";
 import { login } from "../api";
 
 interface LoginPageProps {
@@ -26,8 +27,8 @@ function LoginPage({ onLoginSuccess , onSwitchToRegister , onBack}: LoginPagePro
 
   return (
     <div className="auth-card">
-    <button type="button" className="btn-secondary" onClick={onBack}>
-      ← Back
+    <button type="button" className="btn-icon btn-back" onClick={onBack} aria-label="Back to home">
+      <ArrowLeft size={18} />
     </button>
     <img src="/favicon.svg" alt="HirePoint" width={48} height={48} style={{ display: "block", margin: "0 auto 16px" }} />
     <h2 style={{ textAlign: "center" }}>Log In</h2>
