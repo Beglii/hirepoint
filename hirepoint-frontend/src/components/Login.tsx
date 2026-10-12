@@ -19,7 +19,7 @@ function LoginPage({ onLoginSuccess , onSwitchToRegister , onBack}: LoginPagePro
     try {
       const token = await login({ username, password });
       onLoginSuccess(token);
-    } catch (err) {
+    } catch {
       setError("Invalid username or password");
     }
   }
@@ -27,7 +27,7 @@ function LoginPage({ onLoginSuccess , onSwitchToRegister , onBack}: LoginPagePro
   return (
     <div className="auth-card">
     <button type="button" className="btn-secondary" onClick={onBack}>
-      Back
+      ← Back
     </button>
     <img src="/favicon.svg" alt="HirePoint" width={48} height={48} style={{ display: "block", margin: "0 auto 16px" }} />
     <h2 style={{ textAlign: "center" }}>Log In</h2>

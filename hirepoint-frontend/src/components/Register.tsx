@@ -26,7 +26,7 @@ function RegisterPage({ onLoginSuccess, onSwitchToLogin, onBack}: RegisterPagePr
       await register({ username, password });
       const token = await login({ username, password });
       onLoginSuccess(token);
-    } catch (err) {
+    } catch {
       setError("Registration failed, username may already be taken");
     }
   }
