@@ -1,4 +1,19 @@
-const API_BASE_URL = "https://api.hirepoint.dev/api"; // backend api calls 
+const API_BASE_URL = "https://api.hirepoint.dev/api"; // backend api calls
+
+//runs when the backend rejects the login token, App.tsx sets this to log the user out
+let handleSessionExpired: () => void = () => {};
+
+export function setSessionExpiredHandler(handler: () => void) {
+  handleSessionExpired = handler;
+}
+
+//a 401 or 403 on a logged in request means the token is expired or no longer valid
+function checkSession(response: Response) {
+  if (response.status === 401 || response.status === 403) {
+    handleSessionExpired();
+    throw new Error("Session expired");
+  }
+}
 
 interface LoginRequest {
   username: string;
@@ -47,6 +62,7 @@ export async function getApplications(token: string): Promise<JobApplication[]> 
     },
   });
 
+  checkSession(response);
   if (!response.ok) {
     throw new Error("Failed to fetch applications");
   }
@@ -67,6 +83,7 @@ export async function createApplication(
     body: JSON.stringify(newApplication),
   });
 
+  checkSession(response);
   if (!response.ok) {
     throw new Error("Failed to create application");
   }
@@ -106,6 +123,7 @@ export async function updateApplication(
     body: JSON.stringify(updatedApplication),
   });
 
+  checkSession(response);
   if (!response.ok) {
     throw new Error("Failed to update application");
   }
@@ -121,6 +139,7 @@ export async function deleteApplication(token: string, id: number): Promise<void
     },
   });
 
+  checkSession(response);
   if (!response.ok) {
     throw new Error("Failed to delete application");
   }
