@@ -3,6 +3,7 @@ import { getApplications, type JobApplication } from "../api";
 import { LogOut } from "lucide-react";
 import AddApplicationForm from "./AddApplicationForm";
 import ApplicationItem from "./ApplicationItem";
+import StatsRow from "./StatsRow";
 
 interface DashboardProps {
   token: string;
@@ -65,6 +66,23 @@ function Dashboard({ token, onLogout }: DashboardProps) {
   </button>
 </div>
 
+    <StatsRow applications={applications} />
+
+    <div className="add-application">
+      {showAddForm ? (
+        <div className="add-form-card">
+          <AddApplicationForm token={token} onApplicationAdded={handleApplicationAdded} />
+          <button className="btn-secondary" onClick={() => setShowAddForm(false)}>
+            Cancel
+          </button>
+        </div>
+      ) : (
+        <button className="btn btn-primary" onClick={() => setShowAddForm(true)}>
+          + Add Application
+        </button>
+      )}
+    </div>
+
     <ul className="application-list">
         {sortedApplications.map((app, index) => (
           <ApplicationItem
@@ -79,19 +97,6 @@ function Dashboard({ token, onLogout }: DashboardProps) {
       </ul>
 
     {error && <p className="error-text">{error}</p>}
-
-    {showAddForm ? (
-        <div className="add-form-card">
-          <AddApplicationForm token={token} onApplicationAdded={handleApplicationAdded} />
-          <button className="btn-secondary" onClick={() => setShowAddForm(false)}>
-            Cancel
-          </button>
-        </div>
-      ) : (
-        <button className="btn btn-primary" onClick={() => setShowAddForm(true)}>
-          + Add Application
-        </button>
-      )}
     </div>
   );
 }

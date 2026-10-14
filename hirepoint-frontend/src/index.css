@@ -462,6 +462,10 @@ li.application-card.application-card-editing {
   gap: 4px;
 }
 
+.add-application {
+  margin-bottom: 16px;
+}
+
 .application-list {
   padding: 0;
   margin: 0 0 24px;
