@@ -1,5 +1,6 @@
 package com.begli.hirepoint.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 @Entity
@@ -13,6 +14,7 @@ public class User {
     @Column(unique = true, nullable = false) //safety checks, has to be unique username and cant be empty
     private String username;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) //accepted in requests, never included in responses
     @Column(nullable = false) //same safety checks, but password uniqueness is unnecessary
     private String password;
 

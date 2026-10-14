@@ -5,11 +5,13 @@ import com.begli.hirepoint.repository.UserRepository;
 import com.begli.hirepoint.security.JwtUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -31,7 +33,7 @@ public class AuthController {
     public User register(@RequestBody User newUser) {
         if (userRepository.findByUsername(newUser.getUsername()).isPresent()) {
             logger.warn("Registration failed, username already taken: {}", newUser.getUsername());
-            throw new RuntimeException("Username already taken");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Username already taken");
         }
 
         newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
@@ -45,12 +47,12 @@ public class AuthController {
         User user = userRepository.findByUsername(loginRequest.getUsername())
                 .orElseThrow(() -> { //since we need to log before returning the exception we need a different lambda shape
                     logger.warn("Login failed, username not found: {}", loginRequest.getUsername());
-                    return new RuntimeException("Invalid username or password"); //good security practice to keep the error vague
+                    return new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid username or password"); //good security practice to keep the error vague
                 });
 
         if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) { //takes the password someone typed in, hashes it and compares that hash internally
             logger.warn("Login failed, incorrect password for username: {}", loginRequest.getUsername());
-            throw new RuntimeException("Invalid username or password");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid username or password");
         }
 
         logger.info("Successful login for username: {}", loginRequest.getUsername());

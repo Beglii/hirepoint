@@ -48,7 +48,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable()) //good to block CSRF due to hirepoint not being cookie based with JWT tokens
                 .cors(cors -> cors.configurationSource(corsConfigurationSource())) //wires the cors bean into the spring security filter
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**" , "/health").permitAll()
+                        .requestMatchers("/api/auth/**" , "/health", "/error").permitAll() //error lets spring send real status codes like 401 and 409 instead of turning them into 403
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class); //this inserts the custom filter into Spring Security's filter chain
