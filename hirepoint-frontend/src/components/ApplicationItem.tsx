@@ -3,13 +3,14 @@ import { Pencil, Trash2 } from "lucide-react";
 import { updateApplication, deleteApplication, type JobApplication } from "../api";
 
 interface ApplicationItemProps {
+  number: number;
   application: JobApplication;
   token: string;
   onUpdated: (updated: JobApplication) => void;
   onDeleted: (id: number) => void;
 }
 
-function ApplicationItem({ application, token, onUpdated, onDeleted }: ApplicationItemProps) {
+function ApplicationItem({ number, application, token, onUpdated, onDeleted }: ApplicationItemProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [companyName, setCompanyName] = useState(application.companyName); //this ensures the the fields are pre filled in when editing the job application
   const [jobTitle, setJobTitle] = useState(application.jobTitle);
@@ -98,6 +99,7 @@ function ApplicationItem({ application, token, onUpdated, onDeleted }: Applicati
     <li className="application-card">
       <div className="application-info">
         <span className="application-company">
+          <span className="application-number">#{number}</span>
           {application.companyName} — {application.jobTitle}
         </span>
         <span className={`status-badge status-${application.status}`}>

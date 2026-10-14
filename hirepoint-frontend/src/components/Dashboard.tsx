@@ -42,6 +42,16 @@ function Dashboard({ token, onLogout }: DashboardProps) {
     setApplications(applications.filter((app) => app.id !== id));
   }
 
+  //newest first by date applied, same date falls back to most recently added, no date goes last
+  const sortedApplications = [...applications].sort((a, b) => {
+    const dateA = a.dateApplied ?? "";
+    const dateB = b.dateApplied ?? "";
+    if (dateA !== dateB) {
+      return dateB.localeCompare(dateA);
+    }
+    return b.id - a.id;
+  });
+
   return (
   <div className="dashboard">
     <div className="dashboard-header">
@@ -56,9 +66,10 @@ function Dashboard({ token, onLogout }: DashboardProps) {
 </div>
 
     <ul className="application-list">
-        {applications.map((app) => (
+        {sortedApplications.map((app, index) => (
           <ApplicationItem
             key={app.id}
+            number={sortedApplications.length - index}
             application={app}
             token={token}
             onUpdated={handleApplicationUpdated}

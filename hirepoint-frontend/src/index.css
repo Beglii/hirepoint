@@ -422,6 +422,12 @@ li.application-card.application-card-editing {
   color: #f0f0f0;
 }
 
+.application-number {
+  margin-right: 6px;
+  font-weight: 400;
+  color: #808080;
+}
+
 .status-badge {
   display: inline-block;
   padding: 2px 10px;
