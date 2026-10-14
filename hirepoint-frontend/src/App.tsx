@@ -12,6 +12,7 @@ function App() {
   );
 
   const [authView, setAuthView] = useState<"landing" | "login" | "register">("landing"); //logged out visitors start on the landing page
+  const [sessionNotice, setSessionNotice] = useState(""); //message shown on the login page after a session expires
 
   useEffect(() => {
     if (token) {
@@ -25,11 +26,22 @@ function App() {
     setSessionExpiredHandler(() => {
       setToken(null);
       setAuthView("login");
+      setSessionNotice("Your session has expired. Please log in again.");
     });
   }, []);
 
   function handleLogout() {
   setToken(null);
+  }
+
+  function handleLoginSuccess(newToken: string) {
+    setSessionNotice("");
+    setToken(newToken);
+  }
+
+  function leaveLogin(view: "landing" | "register") {
+    setSessionNotice("");
+    setAuthView(view);
   }
 
   if (!token) {
@@ -47,9 +59,10 @@ function App() {
       return (
         <div className="page">
           <LoginPage
-            onLoginSuccess={setToken}
-            onSwitchToRegister={() => setAuthView("register")}
-            onBack={() => setAuthView("landing")}
+            notice={sessionNotice}
+            onLoginSuccess={handleLoginSuccess}
+            onSwitchToRegister={() => leaveLogin("register")}
+            onBack={() => leaveLogin("landing")}
           />
         </div>
       );

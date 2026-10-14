@@ -393,6 +393,16 @@ li.application-card.application-card-editing {
   margin-bottom: 12px;
 }
 
+.notice-text {
+  margin: 0 0 16px;
+  padding: 10px 12px;
+  border-radius: 6px;
+  background-color: #4a3a1e;
+  color: #d8a84a;
+  font-size: 14px;
+  text-align: center;
+}
+
 .switch-text {
   text-align: center;
   margin-top: 16px;

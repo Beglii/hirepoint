@@ -3,12 +3,13 @@ import { ArrowLeft } from "lucide-react";
 import { login } from "../api";
 
 interface LoginPageProps {
+  notice?: string;
   onLoginSuccess: (token: string) => void;
   onSwitchToRegister: () => void;
   onBack: () => void;
 }
 
-function LoginPage({ onLoginSuccess , onSwitchToRegister , onBack}: LoginPageProps) {
+function LoginPage({ notice, onLoginSuccess , onSwitchToRegister , onBack}: LoginPageProps) {
   const [username, setUsername] = useState(""); //state in react allows the variable to be re rendered
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -32,6 +33,8 @@ function LoginPage({ onLoginSuccess , onSwitchToRegister , onBack}: LoginPagePro
     </button>
     <img src="/favicon.svg" alt="HirePoint" width={48} height={48} style={{ display: "block", margin: "0 auto 16px" }} />
     <h2 style={{ textAlign: "center" }}>Log In</h2>
+
+    {notice && <p className="notice-text" role="status">{notice}</p>}
 
     <form onSubmit={handleSubmit}>
       <div className="field">
