@@ -3,6 +3,7 @@ import LoginPage from "./components/Login";
 import RegisterPage from "./components/Register";
 import LandingPage from "./components/Landing";
 import Dashboard from "./components/Dashboard";
+import { setSessionExpiredHandler } from "./api";
 import "./index.css";
 
 function App() {
@@ -19,6 +20,13 @@ function App() {
       localStorage.removeItem("token");
     }
   }, [token]);
+
+  useEffect(() => { //tells api.ts what to do when the backend rejects the token
+    setSessionExpiredHandler(() => {
+      setToken(null);
+      setAuthView("login");
+    });
+  }, []);
 
   function handleLogout() {
   setToken(null);
