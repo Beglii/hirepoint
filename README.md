@@ -70,7 +70,8 @@ Browser
                                               Caddy :443  ──▶  Spring Boot :8080  ──▶  PostgreSQL :5432
 ```
 
-- The frontend is a static React build served via CloudFront, giving HTTPS and CDN caching in front of a private S3 bucket.
+- The frontend is a static React build in an S3 bucket configured for static website hosting, served through CloudFront for HTTPS and CDN caching (with Cloudflare proxying `hirepoint.dev` in front). The bucket is public-readable, which is fine because it only holds the built static files.
+- HTML files are served with `Cache-Control: no-cache` so browsers always pick up a new deploy, while the hashed JS/CSS bundles are cached for a year (`immutable`), since any change produces a new file name.
 - The backend, database, and Caddy run as three containers on one Lightsail instance, defined in `docker-compose.prod.yml`.
 - Only Caddy is reachable from the internet (ports 80/443). Spring Boot and PostgreSQL have no published ports — they talk to each other over Docker's private network, so the database is never exposed publicly.
 - Caddy terminates HTTPS and obtains/renews its certificate from Let's Encrypt automatically; plain HTTP is redirected to HTTPS.
@@ -125,9 +126,16 @@ The server keeps its own `.env` (database password and JWT secret), which is nev
 ```bash
 cd hirepoint-frontend
 npm run build
-```
 
-Then upload the contents of `dist/` to the S3 bucket and create a CloudFront invalidation for `/*` so the CDN serves the new files.
+# hashed JS/CSS and other assets: cache for a year, and remove files from the previous build
+aws s3 sync dist/ s3://hirepoint-frontend-begli --delete --exclude "*.html" --cache-control "public, max-age=31536000, immutable"
+
+# HTML: always revalidate so browsers pick up the new build immediately
+aws s3 sync dist/ s3://hirepoint-frontend-begli --exclude "*" --include "*.html" --cache-control "no-cache"
+
+# clear CloudFront's cached copies
+aws cloudfront create-invalidation --distribution-id E1OT9P6D9XNRB2 --paths "/*"
+```
 
 ## API Overview
 
