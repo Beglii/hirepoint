@@ -72,6 +72,10 @@ function LandingPage({ onGetStarted, onLogin }: LandingPageProps) {
           <span className="status-badge status-REJECTED">REJECTED</span>
         </div>
       </section>
+
+      <footer className="landing-footer">
+        <a href="/privacy.html">Privacy Policy</a>
+      </footer>
     </div>
   );
 }

@@ -81,6 +81,10 @@ function RegisterPage({ onLoginSuccess, onSwitchToLogin, onBack}: RegisterPagePr
           Log in
         </button>
       </p>
+
+      <p className="legal-text">
+        See our <a href="/privacy.html">Privacy Policy</a> for how your data is handled.
+      </p>
     </div>
   );
 }
