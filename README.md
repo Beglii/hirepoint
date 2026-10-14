@@ -9,8 +9,13 @@ A full-stack job application tracker — register, log in, and manage your job s
 ## Screenshots
 
 <p align="center">
-  <img src="docs/screenshots/dashboard.png" alt="HirePoint dashboard" width="800"><br>
-  <em>Dashboard — track every application's status at a glance</em>
+  <img src="docs/screenshots/landing.png" alt="HirePoint landing page" width="800"><br>
+  <em>Landing page — what HirePoint does, with a preview of the dashboard</em>
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/dashboard.png" alt="HirePoint dashboard with stats" width="800"><br>
+  <em>Dashboard — stats at a glance, with every application numbered newest first</em>
 </p>
 
 <p align="center">
@@ -21,7 +26,7 @@ A full-stack job application tracker — register, log in, and manage your job s
 
 <p align="center">
   <img src="docs/screenshots/add-application.png" alt="Add application form" width="800"><br>
-  <em>Adding a new application</em>
+  <em>Adding a new application — today's date is filled in automatically</em>
 </p>
 
 ---
@@ -33,6 +38,8 @@ A full-stack job application tracker — register, log in, and manage your job s
 - **Application tracking** — company name, job title, status (Applied / Interviewing / Offer / Rejected), date applied, job posting URL, and notes
 - **Server-side validation** — required fields enforced with Jakarta Bean Validation, in addition to client-side checks
 - **Logging** — structured request/event logging (SLF4J) for auth and application actions
+- **Stats at a glance** — live totals for Applied, Interviewing, Offers, and Rejected, plus each application numbered newest first, all derived from the list so they update instantly
+- **Session handling** — expired logins are detected centrally and send you back to the login page with a clear message
 - **Landing page** — introduces the app to logged-out visitors with a live-styled dashboard preview and a "how it works" walkthrough
 - **Dark UI** — custom charcoal/red theme, color-coded status badges, inline editing, collapsible add-application form
 
