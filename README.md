@@ -33,7 +33,7 @@ A full-stack job application tracker — register, log in, and manage your job s
 
 ## Features
 
-- **Authentication** — register/login with JWT-based auth, passwords hashed with BCrypt
+- **Authentication** — register/login with JWT-based auth, passwords hashed with BCrypt and never included in API responses
 - **Full CRUD** — create, view, edit, and delete job applications, each scoped to the logged-in user with ownership checks on every write
 - **Application tracking** — company name, job title, status (Applied / Interviewing / Offer / Rejected), date applied, job posting URL, and notes
 - **Server-side validation** — required fields enforced with Jakarta Bean Validation, in addition to client-side checks
@@ -56,6 +56,9 @@ A full-stack job application tracker — register, log in, and manage your job s
 - React + TypeScript (Vite)
 - Plain CSS (no framework) — custom dark theme
 - lucide-react icons
+
+**Testing**
+- JUnit 5, Spring MockMvc (`@WebMvcTest`), Mockito
 
 **Infrastructure**
 - **Docker** — multi-stage build for the backend; Docker Compose for both local dev and production
@@ -116,6 +119,17 @@ npm run dev
 
 Runs the React app at `localhost:5173`. Note: `API_BASE_URL` in `hirepoint-frontend/src/api.ts` points at the production API, so change it to `http://localhost:8080/api` to develop against the local backend.
 
+## Running Tests
+
+```bash
+./mvnw test
+```
+
+No database is needed — the tests run against the code directly, with the database mocked out.
+
+- **JwtUtil unit tests** — tokens carry the right user; tampered, expired, foreign-signed, and malformed tokens are rejected
+- **Auth controller tests (MockMvc + Mockito)** — passwords are hashed and never returned, duplicate usernames get 409, bad logins get 401, protected routes require a token, and the health check stays public
+
 ## Deploying
 
 **Backend** — on the Lightsail server:
@@ -148,8 +162,8 @@ aws cloudfront create-invalidation --distribution-id E1OT9P6D9XNRB2 --paths "/*"
 
 | Method | Endpoint | Auth required | Description |
 |---|---|---|---|
-| POST | `/api/auth/register` | No | Create a new account |
-| POST | `/api/auth/login` | No | Log in, returns a JWT |
+| POST | `/api/auth/register` | No | Create a new account (409 if the username is taken) |
+| POST | `/api/auth/login` | No | Log in, returns a JWT (401 on bad credentials) |
 | GET | `/api/applications` | Yes | List the current user's applications |
 | POST | `/api/applications` | Yes | Create a new application |
 | PUT | `/api/applications/{id}` | Yes | Update an application (owner only) |
