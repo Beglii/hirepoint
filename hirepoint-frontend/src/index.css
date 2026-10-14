@@ -258,6 +258,7 @@ li.application-card.application-card-editing {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 12px;
   margin-bottom: 20px;
 }
 
@@ -279,6 +280,7 @@ li.application-card.application-card-editing {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  white-space: nowrap;
   background-color: transparent;
   color: #ab333f;
   border: 1px solid #ab333f;
@@ -521,6 +523,15 @@ li.application-card.application-card-editing {
 
   .stat-tile-total {
     grid-column: 1 / -1;
+  }
+
+  .dashboard-header h2 {
+    font-size: 20px;
+  }
+
+  .brand-title img {
+    width: 36px;
+    height: 36px;
   }
 }
 
