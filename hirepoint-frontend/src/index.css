@@ -429,6 +429,10 @@ li.application-card.application-card-editing {
   gap: 4px;
 }
 
+.application-info .error-text {
+  margin: 4px 0 0;
+}
+
 .application-company {
   font-weight: 600;
   color: #f0f0f0;

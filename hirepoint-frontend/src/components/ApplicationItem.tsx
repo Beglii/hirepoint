@@ -18,26 +18,49 @@ function ApplicationItem({ number, application, token, onUpdated, onDeleted }: A
   const [dateApplied, setDateApplied] = useState(application.dateApplied);
   const [jobPostingUrl, setJobPostingUrl] = useState(application.jobPostingUrl);
   const [notes, setNotes] = useState(application.notes);
+  const [error, setError] = useState("");
 
   async function handleSave() {
+    setError("");
     if (!companyName.trim() || !jobTitle.trim()) {
-    return;
-  } 
-    const updated = await updateApplication(token, application.id, {
-      companyName,
-      jobTitle,
-      status,
-      dateApplied,
-      jobPostingUrl,
-      notes,
-    });
-    onUpdated(updated); //tells the update to the parent Dashboard
-    setIsEditing(false);
+      setError("Company name and job title are required");
+      return;
+    }
+
+    try {
+      const updated = await updateApplication(token, application.id, {
+        companyName,
+        jobTitle,
+        status,
+        dateApplied,
+        jobPostingUrl,
+        notes,
+      });
+      onUpdated(updated); //tells the update to the parent Dashboard
+      setIsEditing(false);
+    } catch { //form stays open with the user's changes so they can try again
+      setError("Failed to save changes. Please try again.");
+    }
   }
 
   async function handleDelete() {
-    await deleteApplication(token, application.id);
-    onDeleted(application.id);
+    setError("");
+    try {
+      await deleteApplication(token, application.id);
+      onDeleted(application.id);
+    } catch {
+      setError("Failed to delete application. Please try again.");
+    }
+  }
+
+  function startEditing() {
+    setError("");
+    setIsEditing(true);
+  }
+
+  function cancelEditing() {
+    setError("");
+    setIsEditing(false);
   }
 
   if (isEditing) { //toggle between the editing states
@@ -83,11 +106,13 @@ function ApplicationItem({ number, application, token, onUpdated, onDeleted }: A
           <textarea value={notes} onChange={(e) => setNotes(e.target.value)} />
         </div>
 
+        {error && <p className="error-text">{error}</p>}
+
         <div className="edit-actions">
           <button className="btn btn-primary" onClick={handleSave}>
             Save
           </button>
-          <button className="btn-secondary" onClick={() => setIsEditing(false)}>
+          <button className="btn-secondary" onClick={cancelEditing}>
             Cancel
           </button>
         </div>
@@ -105,9 +130,10 @@ function ApplicationItem({ number, application, token, onUpdated, onDeleted }: A
         <span className={`status-badge status-${application.status}`}>
           {application.status}
         </span>
+        {error && <p className="error-text">{error}</p>}
       </div>
       <div className="application-actions">
-        <button className="btn-icon" onClick={() => setIsEditing(true)}>
+        <button className="btn-icon" onClick={startEditing}>
           <Pencil size={16} />
         </button>
         <button className="btn-icon danger" onClick={handleDelete}>
