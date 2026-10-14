@@ -6,11 +6,20 @@ interface AddApplicationFormProps {
   onApplicationAdded: (newApp: JobApplication) => void;
 }
 
+//today's date as YYYY-MM-DD in the user's own timezone, the format date inputs expect
+function getTodayDate() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
 function AddApplicationForm({ token, onApplicationAdded }: AddApplicationFormProps) {
   const [companyName, setCompanyName] = useState("");
   const [jobTitle, setJobTitle] = useState("");
   const [status, setStatus] = useState("APPLIED"); //automatically set it to applied
-  const [dateApplied, setDateApplied] = useState("");
+  const [dateApplied, setDateApplied] = useState(getTodayDate);
   const [jobPostingUrl, setJobPostingUrl] = useState("");
   const [notes, setNotes] = useState("");
   const [error, setError] = useState("");
@@ -39,7 +48,7 @@ function AddApplicationForm({ token, onApplicationAdded }: AddApplicationFormPro
       setCompanyName("");
       setJobTitle("");
       setStatus("APPLIED");
-      setDateApplied("");
+      setDateApplied(getTodayDate());
       setJobPostingUrl("");
       setNotes("");
     } catch {
