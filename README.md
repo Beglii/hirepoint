@@ -1,6 +1,6 @@
 # HirePoint
 
-A full-stack job application tracker — register, log in, and manage your job search with a clean, dark-themed dashboard. Built end-to-end from a single Spring Boot endpoint through to a fully deployed, HTTPS-secured production app on AWS.
+A full-stack job application tracker. Register, log in, and manage your job search from a clean, dark-themed dashboard. Built end-to-end, from a single Spring Boot endpoint to a fully deployed, HTTPS-secured production app on AWS.
 
 **Live app:** [https://hirepoint.dev](https://hirepoint.dev)
 
